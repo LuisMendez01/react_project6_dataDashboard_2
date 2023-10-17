@@ -1,0 +1,59 @@
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  overflow-x: Hidden;
+  display: inline-block;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: 100%;
+}
+
+.container {
+  background-color: darkslateblue
+}
+
+ul#attributes li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.section {
+    border: 3px solid snow;
+    margin: 20px 20px;
+    padding: 15px 30px;
+}
+
+th {
+  font-weight: bold;
+  text-align: center;
+  padding: 30px 90px;
+  margin: auto;
+}
+
+a {
+  text-decoration: underline !important;
+  color: white !important;
+}
+
+#btnFetch {
+  margin: 40px 0;
+  background-color: darkolivegreen;
+  color: snow;
+  padding: 15px 20px;
+}
+
+#btnSearch {
+  margin: 40px 0;
+  margin-left: 30px;
+  background-color: darkolivegreen;
+  color: snow;
+  padding: 10px;
+}
+
+#textSearch {
+  margin-left: 50px;
+  height: 25px;
+}
