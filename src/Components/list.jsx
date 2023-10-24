@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 
 const list = ({value, searchText}) => {
 
-    const [result, setResult] = useState([]);  
+    const [result, setResult] = useState([]); 
     
     const ACCESS_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
 
@@ -13,7 +14,9 @@ const list = ({value, searchText}) => {
     }
 
     useEffect(() => {
+      if (result.length == 0) {
         fetchAPI();
+      } 
     }, []);
   
     const fetchAPI = () => {
@@ -22,13 +25,18 @@ const list = ({value, searchText}) => {
       var query = '';
   
       const offset = getRandomInt(75) * 20;
+
+      const controller = new AbortController();
   
-      query = `https://gateway.marvel.com/v1/public/characters?offset=${offset}&apikey=${ACCESS_KEY}`;
+      query = `https://gateway.marvel.com/v1/public/characters?offset=${offset}&apikey=${ACCESS_KEY}`,
+      { signal: controller.signal };
   
       callAPI(query).catch((error) => {
           console.error(error);
           alert("Failed to retrieve information. Trying again! Please wait..");
       });
+
+      return () => controller.abort();
     }
   
     const callAPI = async (query) => {
@@ -45,25 +53,11 @@ const list = ({value, searchText}) => {
       setResult([]);
 
       if (results.length > 0) {
-        // setResponseObj({
-        //     name: sol,//rover.name,
-        //     imgUrl: photo[0].img_src
-        // }) 
-
-    // const [responseObj, setResponseObj] = useState({
-    //     name: '',
-    //     thumbnail: '',
-    //     comics:0,
-    //     link: '',
-    // });
-  
-        //getImagesUsed((images, names) => {[...images, photo[0].img_src], [...names, rover.name]});
-        // const newContent = [{name: results[0].name, thumbnail: results[0].thumbnail.path, comics: results[0].comics.available, link: results[0].urls[1].url}];
-        // setResult((obj) => [...obj, ...newContent]);
 
         setResult((obj) => [
             ...obj,
             ...results.map((item) => ({
+              id: item.id,
               name: item.name,
               thumbnail: item.thumbnail.path + "/portrait_small" + "." + item.thumbnail.extension,
               comics: item.comics.available,
@@ -71,12 +65,8 @@ const list = ({value, searchText}) => {
             })),
           ]);
   
-        //setShowImage(true);
-        //setScreenshot(json.url);
-        //setPrevImages((images) => [...images, json.url]);
       } else {
         alert("Failed to retrieve information. Trying again! Please wait...");
-        //discoverFunc();
       }
     }
 
@@ -96,7 +86,12 @@ const list = ({value, searchText}) => {
           {result.slice(0, Math.ceil(value)).filter((obj) => obj.name.toLowerCase().includes(searchText.toLowerCase())).map((item, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{item.name}</td>
+              <Link
+                to={`/CharacterDetails/${item.id}`}
+                key={item.id}
+              >
+                <td>{item.name}</td>
+              </Link>
               <td><img src={item.thumbnail} alt="Thumbnail" /></td>
               <td>{item.comics}</td>
               <td><a href={item.link}>See More</a></td>

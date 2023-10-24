@@ -1,6 +1,6 @@
 #root {
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
   overflow-x: Hidden;
   display: inline-block;
@@ -56,4 +56,67 @@ a {
 #textSearch {
   margin-left: 50px;
   height: 25px;
+}
+
+/* Home Button */
+nav {
+  /* position: fixed; 
+  top: 0; 
+  right: 0;  */
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 15px;
+  width: 100%;
+  background-color: darkslateblue;
+  text-align: center;
+}
+
+#homeBtnArea {
+  padding-right: 20px;
+}
+
+
+.home-link 
+{
+  border:1px solid white;
+  background: darkslateblue;
+  width: 100px;
+  height: 50px;
+  line-height: 45px;
+  border-radius: 5px;
+  list-style-type: none;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.links {
+  color: aliceblue;
+}
+
+.links:hover {
+  color: aquamarine;
+}
+
+#detailPage {
+  background-color: darkslateblue;
+  padding-top: 20px;
+}
+
+#description {
+  margin: 0 auto;
+  width: 60%;
+  text-align: left;
+  padding: 20px;
+  color: snow;
+}
+
+#centerChart {
+  display: inline-block;
+}
+
+#chartBtn {
+  margin: 20px 0 30px 0;
+  background-color: darkolivegreen;
+  color: snow;
+  padding: 15px;
 }
